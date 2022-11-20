@@ -1,0 +1,96 @@
+
+# TeleTrader
+
+This is demo app made for TeleTrader interview
+
+
+App uses in-memory H2 database for easier deployment.
+It also has dummy orders loaded in when server starts.
+
+Async is used when fetching data from database on orderbook endpoint.
+
+## Usage
+Open app folder in terminal and run:
+```
+./gradlew run
+```
+
+
+## API Reference
+
+#### Get orderbook
+This endpoint returns JSON containing top 10 buy orders and top 10 sell orders
+
+```http
+  GET /orderbook
+```
+Response:
+```json
+{
+    "buy": [
+        {
+            "price": 4.1,
+            "amount": 90.0,
+            "type": "buy"
+        },
+        {
+            "price": 4.2,
+            "amount": 30.0,
+            "type": "buy"
+        },
+        ...
+        {
+            "price": 5.0,
+            "amount": 150.0,
+            "type": "buy"
+        }
+    ],
+    "sell": [
+        {
+            "price": 4.1,
+            "amount": 90.0,
+            "type": "sell"
+        },
+        {
+            "price": 4.2,
+            "amount": 30.0,
+            "type": "sell"
+        },
+        ...
+        {
+            "price": 5.0,
+            "amount": 70.0,
+            "type": "sell"
+        }
+    ]
+}
+```
+
+#### Send new order
+This endpoint allows user to send new buy or sell order
+
+```http
+  POST /orders
+```
+
+Request:
+
+```json
+{
+    "amount": 50.0,
+    "price": 26.0,
+    "type": "buy"
+}
+```
+
+Response:
+
+```json
+{
+    "id": 6,
+    "price": 26.0,
+    "amount": 50.0,
+    "type": "buy",
+    "createdAt": "2022-11-19T19:43:25.121112"
+}
+```
